@@ -4,7 +4,21 @@ export default class Model {
     this.view = null;
     //los todo's se van a almacenar en el navegador por medio del
     //localStorage
-    this.todos = [];
+    this.todos = JSON.parse(localStorage.getItem('todos'));
+    if (!this.todos || this.todos.length < 1) {
+      //se crea una lista de los elementos Todo's
+      this.todos = [
+        {
+          id: 0,
+          title: 'Learn JS',
+          description: 'Watch JS Tutorials',
+          completed: false,
+        }
+      ]
+      this.currentId = 1;
+    } else {
+      this.currentId = this.todos[this.todos.length - 1].id + 1;
+    }
   }
 
   setView(view) {

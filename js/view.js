@@ -111,7 +111,7 @@ export default class View {
     //elemento haga referencia al modal de editat
     editBtn.setAttribute('data-toggle', 'modal');
     editBtn.setAttribute('data-target', '#modal');
-    editBtn.onclick = () => this.modal.setValue ({
+    editBtn.onclick = () => this.modal.setValues({
       id: todo.id,
       title: row.children[0].innerText,
       description: row.children[1].innerText,
