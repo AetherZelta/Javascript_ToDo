@@ -1,6 +1,8 @@
 import AddTodo from './components/add-todo.js';
 import Modal from './components/modal.js';
 import Filters from './components/filters.js';
+import Alert from './components/alert.js';
+
 
 export default class View {
   constructor() {
@@ -10,9 +12,10 @@ export default class View {
     this.addTodoForm = new AddTodo();
     this.modal = new Modal();
     this.filters = new Filters();
+    this.alert = new Alert('alert');
     
 
-    this.addTodoForm.onClick((title, description) => this.addTodo(title, description));
+    this.addTodoForm.onClick((title, description, fecha) => this.addTodo(title, description, fecha));
     this.modal.onClick((id, values) => this.editTodo(id, values));
     this.filters.onClick((filters) => this.filter(filters));
   }
@@ -37,6 +40,9 @@ export default class View {
       if (words) {
         shouldHide = !title.innerText.includes(words) && !description.innerText.includes(words);
       }
+      else{
+        this.alert.show('Title and description are required');
+      }
 
       const shouldBeCompleted = type === 'completed';
       const isCompleted = completed.children[0].checked;
@@ -53,8 +59,8 @@ export default class View {
     }
   }
 
-  addTodo(title, description) {
-    const todo = this.model.addTodo(title, description);
+  addTodo(title, description, fecha) {
+    const todo = this.model.addTodo(title, description, fecha); 
     this.createRow(todo);
   }
 
@@ -67,7 +73,8 @@ export default class View {
     const row = document.getElementById(id);
     row.children[0].innerText = values.title;
     row.children[1].innerText = values.description;
-    row.children[2].children[0].checked = values.completed;
+    row.children[2].innerText = values.fecha;
+    row.children[3].children[0].checked = values.completed;
   }
   
   //recibe un parametro del renglon que tiene que borrar en la tabla
@@ -84,6 +91,7 @@ export default class View {
     row.innerHTML = `
       <td>${todo.title}</td>
       <td>${todo.description}</td>
+      <td>${todo.fecha}</td>
       <td class="text-center">
 
       </td>
@@ -92,13 +100,13 @@ export default class View {
       </td>
     `;
     //se crea un elemento de HTML, en este caso es un checkbox dentro de 
-    // un renglon de la tabla para marcar el ToDo como finalizado
+    // un renglon de la tabla para marcar el ToDo como finalizado  
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.checked = todo.completed;
     checkbox.onclick = () => this.toggleCompleted(todo.id);
     //el chebox se crea como 3er elemento del renglon
-    row.children[2].appendChild(checkbox);
+    row.children[3].appendChild(checkbox);
 
     //se crea un boton dentro del renglon, se crea el boton de editar 
     const editBtn = document.createElement('button');
@@ -115,15 +123,16 @@ export default class View {
       id: todo.id,
       title: row.children[0].innerText,
       description: row.children[1].innerText,
-      completed: row.children[2].children[0].checked,
+      fecha: row.children[2].innerText,
+      completed: row.children[3].children[0].checked,
     });
     
-    row.children[3].appendChild(editBtn);
+    row.children[4].appendChild(editBtn);
 
     const removeBtn = document.createElement('button');
     removeBtn.classList.add('btn', 'btn-danger', 'mb-1', 'ml-1');
     removeBtn.innerHTML = '<i class="fa fa-trash"></i>';
     removeBtn.onclick = () => this.removeTodo(todo.id);
-    row.children[3].appendChild(removeBtn);
+    row.children[4].appendChild(removeBtn);
   }
 }

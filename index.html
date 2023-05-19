@@ -73,6 +73,10 @@
                             <textarea class="form-control" id="modal-description" rows="3">
 
               </textarea>
+              <div class="form-group">
+                <label>Fecha de vencimiento</label>
+                <input id="modal-date" type="date" class="form-control">
+              </div>
                         </div>
                         <div class="form-group d-inline-flex">
                             <label>Completada</label>
@@ -109,11 +113,20 @@
                             <label class="m-sm-0">Titulo</label>
                             <input type="text" id="title" class="form-control ml-sm-2">
                         </div>
-                        <div class="px-sm-2 col-sm-7 d-sm-flex align-items-center mt-2 mt-sm-0">
+                        <div class="px-sm-2 col-sm-3 d-sm-flex align-items-center mt-2 mt-sm-0">
                             <label class="m-sm-0">Descripcion</label>
                             <input type="text" id="description" class="form-control ml-sm-2">
                         </div>
-                        <div class="col-sm-2 d-sm-flex justify-content-end mt-4 mt-sm-0">
+
+                        <div class="px-sm-2 col-sm-3 d-sm-flex align-items-center mt-2 mt-sm-0">
+                            <label class="m-sm-0">Fecha de vencimiento</label>
+                            <input
+                              type="date"
+                              id="fecha"
+                              class="form-control ml-sm-2"
+                            >
+                            </div>
+                        <div class="col-sm-2 d-sm-flex justify-content-end mt-2 mt-sm-0">
                             <button type="button" class="btn btn-info btn-block" id="add">
                                 Agregar
                             </button>
@@ -130,10 +143,11 @@
                         <tr>
                             <th scope="col">ToDo</th>
                             <th scope="col">Descripcion</th>
+                            <th scope="col">Fecha de vencimiento</th>
                             <th scope="col">
-                                <div class="d-flex justify-content-center">
+                            <div class="d-flex justify-content-center">
                                     Completada
-                                </div>
+                            </div>
                             </th>
                             <th scope="col"></th>
                         </tr>

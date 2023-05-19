@@ -16,4 +16,10 @@ export default class Alert {
     //para que se oculte.
     this.alert.classList.add('d-none');
   }
+  succes(message){
+    this.alert.classList.remove('d-none');
+    this.alert.classList.remove('alert-danger');
+    this.alert.classList.add('alert-success');
+    this.alert.innerText = message;
+  }
 }

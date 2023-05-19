@@ -5,20 +5,6 @@ export default class Model {
     //los todo's se van a almacenar en el navegador por medio del
     //localStorage
     this.todos = JSON.parse(localStorage.getItem('todos'));
-    if (!this.todos || this.todos.length < 1) {
-      //se crea una lista de los elementos Todo's
-      this.todos = [
-        {
-          id: 0,
-          title: 'Learn JS',
-          description: 'Watch JS Tutorials',
-          completed: false,
-        }
-      ]
-      this.currentId = 1;
-    } else {
-      this.currentId = this.todos[this.todos.length - 1].id + 1;
-    }
   }
 
   setView(view) {
@@ -50,14 +36,15 @@ export default class Model {
     this.save();
   }
 
-  addTodo(title, description) {
+  addTodo(title, description, fecha) {
     //se le agrega un titulo al objeto, es decir al Todo
     const todo = {
-      //el id se incrementa en uno 
+      //el id se incrementa en uno      
       id: this.currentId++,
-      title,
-      description,
-      completed: false,
+        title,
+        description,
+        completed: false,
+        fecha
     }
 
     this.todos.push(todo);
